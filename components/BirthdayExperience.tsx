@@ -145,6 +145,11 @@ export default function BirthdayExperience() {
       <div className="floating-shape shape-two" />
       <div className="floating-shape shape-three" />
 
+      <span className="sparkle sparkle-one" aria-hidden="true">✨</span>
+      <span className="sparkle sparkle-two" aria-hidden="true">⭐</span>
+      <span className="sparkle sparkle-three" aria-hidden="true">✨</span>
+      <span className="sparkle sparkle-four" aria-hidden="true">⭐</span>
+
       <AnimatePresence mode="wait">
         {!isOpen ? (
           <motion.section

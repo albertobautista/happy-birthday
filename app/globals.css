@@ -1,13 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  --background-start: #fff8ee;
-  --background-end: #f8e8ff;
-  --text: #31213d;
-  --muted: #735f7e;
-  --accent: #8e44ad;
-  --accent-dark: #71368c;
-  --card: rgba(255, 255, 255, 0.78);
+  --background-start: #1b1149;
+  --background-end: #3d1f7a;
+  --text: #2a1b4d;
+  --muted: #5c4b82;
+  --accent: #caa02c;
+  --accent-dark: #a97e1b;
+  --magic-pink: #ff6fae;
+  --card: rgba(255, 251, 240, 0.92);
 }
 
 * {
@@ -22,7 +23,7 @@ body {
 
 body {
   color: var(--text);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body), "Baloo 2", Arial, Helvetica, sans-serif;
   background: linear-gradient(135deg, var(--background-start), var(--background-end));
 }
 
@@ -46,10 +47,10 @@ button {
   width: min(100%, 760px);
   padding: clamp(32px, 6vw, 64px);
   text-align: center;
-  border: 1px solid rgba(255, 255, 255, 0.9);
+  border: 2px solid rgba(202, 160, 44, 0.55);
   border-radius: 36px;
   background: var(--card);
-  box-shadow: 0 28px 90px rgba(83, 49, 100, 0.18);
+  box-shadow: 0 28px 90px rgba(20, 10, 60, 0.35), 0 0 0 6px rgba(255, 255, 255, 0.5) inset;
   backdrop-filter: blur(18px);
 }
 
@@ -61,6 +62,7 @@ button {
   font-size: clamp(2.5rem, 7vw, 5.4rem);
   line-height: 0.98;
   letter-spacing: -0.05em;
+  color: var(--accent-dark);
 }
 
 .welcome-card h1 {
@@ -69,7 +71,7 @@ button {
 
 .eyebrow {
   margin: 0;
-  color: var(--accent);
+  color: var(--magic-pink);
   font-size: 0.82rem;
   font-weight: 800;
   letter-spacing: 0.18em;
@@ -93,8 +95,8 @@ button {
   place-items: center;
   color: white;
   border-radius: 30px;
-  background: linear-gradient(145deg, #a855c7, #f08bb4);
-  box-shadow: 0 20px 40px rgba(142, 68, 173, 0.25);
+  background: linear-gradient(145deg, var(--accent), var(--magic-pink));
+  box-shadow: 0 20px 40px rgba(202, 160, 44, 0.35);
 }
 
 .primary-button,
@@ -111,11 +113,11 @@ button {
 .primary-button {
   margin-top: 32px;
   padding: 16px 24px;
-  color: white;
+  color: #2a1b4d;
   font-weight: 800;
   border-radius: 999px;
-  background: linear-gradient(135deg, var(--accent), #d75a9d);
-  box-shadow: 0 14px 30px rgba(142, 68, 173, 0.28);
+  background: linear-gradient(135deg, var(--accent), #ffe08a);
+  box-shadow: 0 14px 30px rgba(202, 160, 44, 0.4);
 }
 
 .primary-button:hover,
@@ -135,7 +137,7 @@ button {
   padding: 12px 17px;
   color: var(--accent-dark);
   font-weight: 700;
-  border: 1px solid rgba(142, 68, 173, 0.16);
+  border: 1px solid rgba(202, 160, 44, 0.35);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.72);
 }
@@ -152,7 +154,7 @@ button {
   left: 7%;
   width: 180px;
   height: 180px;
-  background: #ffd8a8;
+  background: #ffd76a;
 }
 
 .shape-two {
@@ -160,7 +162,7 @@ button {
   bottom: 8%;
   width: 240px;
   height: 240px;
-  background: #e6b8ff;
+  background: #7c6cf0;
 }
 
 .shape-three {
@@ -168,7 +170,55 @@ button {
   right: 14%;
   width: 90px;
   height: 90px;
-  background: #ffb8d2;
+  background: #ff6fae;
+}
+
+.sparkle {
+  position: absolute;
+  color: #ffe9a8;
+  opacity: 0.9;
+  filter: drop-shadow(0 0 6px rgba(255, 233, 168, 0.8));
+  animation: twinkle 2.4s ease-in-out infinite;
+}
+
+.sparkle-one {
+  top: 12%;
+  left: 22%;
+  font-size: 1.6rem;
+  animation-delay: 0s;
+}
+
+.sparkle-two {
+  top: 68%;
+  left: 10%;
+  font-size: 1.1rem;
+  animation-delay: 0.6s;
+}
+
+.sparkle-three {
+  top: 20%;
+  right: 20%;
+  font-size: 1.3rem;
+  animation-delay: 1.1s;
+}
+
+.sparkle-four {
+  bottom: 14%;
+  right: 12%;
+  font-size: 1.8rem;
+  animation-delay: 1.6s;
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.8) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15) rotate(15deg);
+  }
 }
 
 .cake {
@@ -230,7 +280,7 @@ button {
   height: 42px;
   border-radius: 50%;
   background: #fff3e1;
-  box-shadow: inset 0 -12px 0 #ffd4da;
+  box-shadow: inset 0 -12px 0 #ffe08a;
 }
 
 .cake-layer {
@@ -240,13 +290,13 @@ button {
 .cake-layer-one {
   top: 88px;
   height: 70px;
-  background: #ff9dbc;
+  background: #ff6fae;
 }
 
 .cake-layer-two {
   top: 148px;
   height: 72px;
-  background: #ba76d4;
+  background: #4b2e9e;
 }
 
 .cake-plate {
