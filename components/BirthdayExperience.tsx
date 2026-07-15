@@ -1,9 +1,11 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Image from "next/image";
 import confetti from "canvas-confetti";
+import * as Dialog from "@radix-ui/react-dialog";
 import { motion, AnimatePresence } from "framer-motion";
-import { Gift, Music, Pause, PartyPopper } from "lucide-react";
+import { Gift, Music, Pause, PartyPopper, Ticket, X } from "lucide-react";
 import BirthdayCake from "./BirthdayCake";
 
 const launchConfetti = () => {
@@ -244,6 +246,40 @@ export default function BirthdayExperience() {
                 <PartyPopper size={18} />
                 Más confeti
               </button>
+
+              <Dialog.Root>
+                <Dialog.Trigger asChild>
+                  <button className="secondary-button" type="button">
+                    <Ticket size={18} />
+                    Ver regalo
+                  </button>
+                </Dialog.Trigger>
+                <Dialog.Portal>
+                  <Dialog.Overlay className="modal-overlay" />
+                  <Dialog.Content className="modal-content">
+                    <Dialog.Title className="modal-title">
+                      Tu regalo
+                    </Dialog.Title>
+                    <Dialog.Close asChild>
+                      <button
+                        className="modal-close"
+                        type="button"
+                        aria-label="Cerrar"
+                      >
+                        <X size={20} />
+                      </button>
+                    </Dialog.Close>
+                    <Image
+                      src="/images/ticket.PNG"
+                      alt="Regalo sorpresa"
+                      width={480}
+                      height={480}
+                      className="modal-image"
+                      unoptimized
+                    />
+                  </Dialog.Content>
+                </Dialog.Portal>
+              </Dialog.Root>
             </div>
           </motion.section>
         )}
