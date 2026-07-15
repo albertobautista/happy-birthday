@@ -24,7 +24,12 @@ body {
 body {
   color: var(--text);
   font-family: var(--font-body), "Baloo 2", Arial, Helvetica, sans-serif;
-  background: linear-gradient(135deg, var(--background-start), var(--background-end));
+  background:
+    radial-gradient(ellipse 60% 45% at 18% 12%, rgba(255, 214, 130, 0.22), transparent 60%),
+    radial-gradient(ellipse 55% 50% at 85% 15%, rgba(255, 111, 174, 0.18), transparent 62%),
+    radial-gradient(ellipse 70% 60% at 50% 100%, rgba(124, 108, 240, 0.35), transparent 65%),
+    linear-gradient(135deg, var(--background-start), var(--background-end));
+  background-attachment: fixed;
 }
 
 button {
@@ -218,6 +223,51 @@ button {
   }
 }
 
+.cloud {
+  position: absolute;
+  z-index: 0;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.16), transparent 70%);
+  filter: blur(10px);
+  pointer-events: none;
+  animation: drift 26s ease-in-out infinite alternate;
+}
+
+.cloud-one {
+  top: 6%;
+  left: -8%;
+  width: 320px;
+  height: 160px;
+  animation-duration: 30s;
+}
+
+.cloud-two {
+  bottom: 8%;
+  right: -10%;
+  width: 380px;
+  height: 190px;
+  animation-duration: 34s;
+  animation-delay: -8s;
+}
+
+.cloud-three {
+  top: 42%;
+  right: 8%;
+  width: 220px;
+  height: 110px;
+  animation-duration: 22s;
+  animation-delay: -4s;
+}
+
+@keyframes drift {
+  from {
+    transform: translateX(0) translateY(0);
+  }
+  to {
+    transform: translateX(40px) translateY(-16px);
+  }
+}
+
 .floating-shape {
   position: absolute;
   border-radius: 999px;
@@ -320,6 +370,7 @@ button {
   display: flex;
   flex-shrink: 0;
   align-items: flex-end;
+  cursor: pointer;
   filter: drop-shadow(0 4px 6px rgba(80, 45, 95, 0.25));
   transform-origin: bottom center;
   animation: sway 0.9s ease-in-out infinite alternate;
@@ -385,6 +436,17 @@ button {
   background: #ffffff;
   box-shadow: 0 14px 24px rgba(80, 45, 95, 0.16);
   transform: translateX(-50%);
+  animation: breathe-shadow 3.2s ease-in-out infinite;
+}
+
+@keyframes breathe-shadow {
+  0%,
+  100% {
+    box-shadow: 0 14px 24px rgba(80, 45, 95, 0.16);
+  }
+  50% {
+    box-shadow: 0 18px 32px rgba(80, 45, 95, 0.26);
+  }
 }
 
 @keyframes sway {

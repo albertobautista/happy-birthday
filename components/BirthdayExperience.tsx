@@ -143,6 +143,10 @@ export default function BirthdayExperience() {
         src="/audio/birthday-song.mp3"
       />
 
+      <div className="cloud cloud-one" />
+      <div className="cloud cloud-two" />
+      <div className="cloud cloud-three" />
+
       <div className="floating-shape shape-one" />
       <div className="floating-shape shape-two" />
       <div className="floating-shape shape-three" />

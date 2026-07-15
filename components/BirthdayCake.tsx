@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 export default function BirthdayCake() {
   return (
@@ -8,7 +11,12 @@ export default function BirthdayCake() {
     >
       <div className="bottles" aria-hidden="true">
         {[0, 1, 2, 3].map((bottle) => (
-          <div className="bottle" key={bottle}>
+          <motion.div
+            className="bottle"
+            key={bottle}
+            whileTap={{ scale: 1.35, rotate: [0, -8, 8, 0] }}
+            transition={{ duration: 0.35 }}
+          >
             <Image
               src="/images/bottle.png"
               alt=""
@@ -16,7 +24,7 @@ export default function BirthdayCake() {
               height={44}
               unoptimized
             />
-          </div>
+          </motion.div>
         ))}
       </div>
       <div className="cake-top" />
