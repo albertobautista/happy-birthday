@@ -5,7 +5,7 @@ import Image from "next/image";
 import confetti from "canvas-confetti";
 import * as Dialog from "@radix-ui/react-dialog";
 import { motion, AnimatePresence } from "framer-motion";
-import { Gift, Music, Pause, PartyPopper, Ticket, X } from "lucide-react";
+import { Gift, Lock, Music, Pause, PartyPopper, Ticket, X } from "lucide-react";
 import BirthdayCake from "./BirthdayCake";
 
 const launchConfetti = () => {
@@ -99,10 +99,34 @@ const launchConfetti = () => {
   }, intervalDelay);
 };
 
+const SECRET_PASSWORD = "Jeny1512";
+
 export default function BirthdayExperience() {
   const [isOpen, setIsOpen] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [passwordInput, setPasswordInput] = useState("");
+  const [isUnlocked, setIsUnlocked] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
+
+  const checkPassword = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (passwordInput === SECRET_PASSWORD) {
+      setIsUnlocked(true);
+      setPasswordError(false);
+    } else {
+      setPasswordError(true);
+    }
+  };
+
+  const resetSecretModal = (open: boolean) => {
+    if (!open) {
+      setPasswordInput("");
+      setIsUnlocked(false);
+      setPasswordError(false);
+    }
+  };
 
   const openCard = async () => {
     setIsOpen(true);
@@ -151,10 +175,18 @@ export default function BirthdayExperience() {
       <div className="floating-shape shape-two" />
       <div className="floating-shape shape-three" />
 
-      <span className="sparkle sparkle-one" aria-hidden="true">✨</span>
-      <span className="sparkle sparkle-two" aria-hidden="true">⭐</span>
-      <span className="sparkle sparkle-three" aria-hidden="true">✨</span>
-      <span className="sparkle sparkle-four" aria-hidden="true">⭐</span>
+      <span className="sparkle sparkle-one" aria-hidden="true">
+        ✨
+      </span>
+      <span className="sparkle sparkle-two" aria-hidden="true">
+        ⭐
+      </span>
+      <span className="sparkle sparkle-three" aria-hidden="true">
+        ✨
+      </span>
+      <span className="sparkle sparkle-four" aria-hidden="true">
+        ⭐
+      </span>
 
       <AnimatePresence mode="wait">
         {!isOpen ? (
@@ -281,6 +313,105 @@ export default function BirthdayExperience() {
                       className="modal-image"
                       unoptimized
                     />
+                  </Dialog.Content>
+                </Dialog.Portal>
+              </Dialog.Root>
+
+              <Dialog.Root onOpenChange={resetSecretModal}>
+                <Dialog.Trigger asChild>
+                  <button className="secondary-button" type="button">
+                    <Lock size={18} />
+                    Mensaje
+                  </button>
+                </Dialog.Trigger>
+                <Dialog.Portal>
+                  <Dialog.Overlay className="modal-overlay" />
+                  <Dialog.Content className="modal-content">
+                    <Dialog.Title className="modal-title">
+                      {isUnlocked ? "Mensaje" : "Escribe la contraseña"}
+                    </Dialog.Title>
+                    <Dialog.Close asChild>
+                      <button
+                        className="modal-close"
+                        type="button"
+                        aria-label="Cerrar"
+                      >
+                        <X size={20} />
+                      </button>
+                    </Dialog.Close>
+
+                    {isUnlocked ? (
+                      <>
+                        <p className="secret-message">
+                          Esta carta de cumpleaños la hice con mucho cariño para
+                          ti.
+                        </p>
+                        <p className="secret-message">
+                          Hay algo de ti que admiro profundamente: la forma en
+                          la que enfrentas los problemas. Siempre procuras ver
+                          el lado positivo de las cosas y transmites una actitud
+                          que inspira a quienes te rodean. Casi siempre te veo
+                          sonriendo, de buen humor y compartiendo esa energía
+                          tan bonita que hace que las personas se sientan bien a
+                          tu lado.
+                        </p>
+                        <p className="secret-message">
+                          Aunque llevamos poco tiempo de conocernos, en ese
+                          tiempo he aprendido a quererte y a respetarte
+                          muchísimo. Siento una confianza muy especial contigo,
+                          y eso es algo que valoro de verdad. En tan poco tiempo
+                          hemos compartido muchas experiencias, momentos y
+                          recuerdos que agradezco mucho.
+                        </p>
+                        <p className="secret-message">
+                          Como te lo dije una vez, llegaste a mi vida en un
+                          momento en el que realmente lo necesitaba, y me alegra
+                          que así haya sido.
+                        </p>
+                        <p className="secret-message">
+                          Quiero que sepas que siempre vas a poder contar
+                          conmigo. En mí siempre tendrás a alguien que te
+                          escuche, que te apoye y que estará ahí cuando lo
+                          necesites. Espero que nuestra amistad siga creciendo y
+                          que podamos seguir compartiendo muchos momentos más,
+                          con la misma confianza y alegría que hemos tenido
+                          hasta ahora.
+                        </p>
+                        <p className="secret-message">
+                          Gracias por ser exactamente como eres. No cambies esa
+                          forma tan especial de ver la vida y de hacer sentir
+                          bien a quienes tenemos la fortuna de conocerte.
+                        </p>
+                        <p className="secret-message">
+                          ¡Feliz cumpleaños! Te quiero mucho. ❤️
+                        </p>
+                      </>
+                    ) : (
+                      <form className="password-form" onSubmit={checkPassword}>
+                        <input
+                          type="password"
+                          className="password-input"
+                          placeholder="Contraseña"
+                          value={passwordInput}
+                          onChange={(e) => {
+                            setPasswordInput(e.target.value);
+                            setPasswordError(false);
+                          }}
+                          autoFocus
+                        />
+                        {passwordError && (
+                          <p className="password-error">
+                            Contraseña incorrecta, intenta de nuevo.
+                          </p>
+                        )}
+                        <button
+                          className="primary-button password-submit"
+                          type="submit"
+                        >
+                          Desbloquear
+                        </button>
+                      </form>
+                    )}
                   </Dialog.Content>
                 </Dialog.Portal>
               </Dialog.Root>
