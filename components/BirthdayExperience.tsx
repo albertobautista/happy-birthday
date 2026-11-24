@@ -1,11 +1,10 @@
 "use client";
 
 import { useRef, useState } from "react";
-import Image from "next/image";
 import confetti from "canvas-confetti";
 import * as Dialog from "@radix-ui/react-dialog";
 import { motion, AnimatePresence } from "framer-motion";
-import { Gift, Lock, Music, Pause, PartyPopper, Ticket, X } from "lucide-react";
+import { Dog, Gift, Lock, Music, Pause, PawPrint, Ticket, X } from "lucide-react";
 import BirthdayCake from "./BirthdayCake";
 
 const launchConfetti = () => {
@@ -14,6 +13,21 @@ const launchConfetti = () => {
   const duration = isMobile ? 5000 : 10000;
   const intervalDelay = isMobile ? 350 : 220;
   const animationEnd = Date.now() + duration;
+
+  const dogShapes = ["🐾", "🦴", "🐶"].map((text) =>
+    confetti.shapeFromText({ text, scalar: 2 }),
+  );
+  const shapes = [...dogShapes, "circle", "square"] as confetti.Shape[];
+  const colors = [
+    "#d98a3d",
+    "#ff7f6b",
+    "#7fcfa8",
+    "#ffd76a",
+    "#fff3e1",
+    "#6b3f24",
+  ];
+  const fire = (options: confetti.Options) =>
+    confetti({ shapes, colors, scalar: 1.6, ...options });
 
   const randomInRange = (min: number, max: number) =>
     Math.random() * (max - min) + min;
@@ -26,7 +40,7 @@ const launchConfetti = () => {
       return;
     }
 
-    confetti({
+    fire({
       particleCount: Math.round(18 * scale),
       angle: 60,
       spread: 65,
@@ -38,7 +52,7 @@ const launchConfetti = () => {
       },
     });
 
-    confetti({
+    fire({
       particleCount: Math.round(18 * scale),
       angle: 120,
       spread: 65,
@@ -50,7 +64,7 @@ const launchConfetti = () => {
       },
     });
 
-    confetti({
+    fire({
       particleCount: Math.round(12 * scale),
       angle: 30,
       spread: 55,
@@ -61,7 +75,7 @@ const launchConfetti = () => {
       },
     });
 
-    confetti({
+    fire({
       particleCount: Math.round(12 * scale),
       angle: 150,
       spread: 55,
@@ -72,7 +86,7 @@ const launchConfetti = () => {
       },
     });
 
-    confetti({
+    fire({
       particleCount: Math.round(12 * scale),
       angle: 270,
       spread: 100,
@@ -85,7 +99,7 @@ const launchConfetti = () => {
       },
     });
 
-    confetti({
+    fire({
       particleCount: Math.round(14 * scale),
       angle: 90,
       spread: 80,
@@ -99,7 +113,7 @@ const launchConfetti = () => {
   }, intervalDelay);
 };
 
-const SECRET_PASSWORD = "Jeny1512";
+const SECRET_PASSWORD = "2911";
 
 export default function BirthdayExperience() {
   const [isOpen, setIsOpen] = useState(false);
@@ -176,16 +190,16 @@ export default function BirthdayExperience() {
       <div className="floating-shape shape-three" />
 
       <span className="sparkle sparkle-one" aria-hidden="true">
-        ✨
+        🐾
       </span>
       <span className="sparkle sparkle-two" aria-hidden="true">
-        ⭐
+        🦴
       </span>
       <span className="sparkle sparkle-three" aria-hidden="true">
-        ✨
+        🐾
       </span>
       <span className="sparkle sparkle-four" aria-hidden="true">
-        ⭐
+        🦴
       </span>
 
       <AnimatePresence mode="wait">
@@ -203,7 +217,7 @@ export default function BirthdayExperience() {
               animate={{ rotate: [-5, 5, -5], y: [0, -8, 0] }}
               transition={{ duration: 2.4, repeat: Infinity }}
             >
-              <Gift size={58} strokeWidth={1.8} />
+              <Dog size={58} strokeWidth={1.8} />
             </motion.div>
 
             <p className="eyebrow">Tienes una sorpresa</p>
@@ -213,7 +227,7 @@ export default function BirthdayExperience() {
             <p className="subtitle">Activa el sonido y abre tu regalo.</p>
 
             <button className="primary-button" onClick={openCard} type="button">
-              <Gift size={20} />
+              <PawPrint size={20} />
               Abrir mi regalo
             </button>
           </motion.section>
@@ -243,7 +257,7 @@ export default function BirthdayExperience() {
                 stiffness: 120,
               }}
             >
-              ¡Feliz cumpleaños, Jeny!
+              ¡Feliz cumpleaños, Sandra!
             </motion.h1>
 
             <motion.p
@@ -279,8 +293,8 @@ export default function BirthdayExperience() {
                 onClick={launchConfetti}
                 type="button"
               >
-                <PartyPopper size={18} />
-                Más confeti
+                <PawPrint size={18} />
+                Más patitas
               </button>
 
               <Dialog.Root>
@@ -305,14 +319,19 @@ export default function BirthdayExperience() {
                         <X size={20} />
                       </button>
                     </Dialog.Close>
-                    <Image
-                      src="/images/ticket.PNG"
-                      alt="Regalo sorpresa"
-                      width={480}
-                      height={480}
-                      className="modal-image"
-                      unoptimized
-                    />
+                    <div className="coming-soon">
+                      <motion.div
+                        className="coming-soon-icon"
+                        animate={{ rotate: [-6, 6, -6], y: [0, -6, 0] }}
+                        transition={{ duration: 2.2, repeat: Infinity }}
+                      >
+                        <Gift size={44} strokeWidth={1.8} />
+                      </motion.div>
+                      <p className="coming-soon-title">Coming soon</p>
+                      <p className="coming-soon-text">
+                        Tu regalo viene en camino.
+                      </p>
+                    </div>
                   </Dialog.Content>
                 </Dialog.Portal>
               </Dialog.Root>
@@ -343,53 +362,37 @@ export default function BirthdayExperience() {
                     {isUnlocked ? (
                       <>
                         <p className="secret-message">
-                          Esta carta de cumpleaños la hice con mucho cariño para
-                          ti.
+                          Esta tarjeta la hice con mucho cariño para ti.
                         </p>
                         <p className="secret-message">
-                          Hay algo de ti que admiro profundamente: la forma en
-                          la que enfrentas los problemas. Siempre procuras ver
-                          el lado positivo de las cosas y transmites una actitud
-                          que inspira a quienes te rodean. Casi siempre te veo
-                          sonriendo, de buen humor y compartiendo esa energía
-                          tan bonita que hace que las personas se sientan bien a
-                          tu lado.
+                          A lo largo de este tiempo me ha gustado muchísimo
+                          poder conocerte más. Cada plática, cada momento y
+                          cada risa compartida me han dejado ver lo increíble
+                          que eres, y eso es algo que disfruto de verdad.
                         </p>
                         <p className="secret-message">
-                          Aunque llevamos poco tiempo de conocernos, en ese
-                          tiempo he aprendido a quererte y a respetarte
-                          muchísimo. Siento una confianza muy especial contigo,
-                          y eso es algo que valoro de verdad. En tan poco tiempo
-                          hemos compartido muchas experiencias, momentos y
-                          recuerdos que agradezco mucho.
+                          También quiero darte las gracias por todo lo que has
+                          hecho por mí. Quizá no siempre te lo digo, pero lo
+                          valoro y lo agradezco mucho más de lo que imaginas.
                         </p>
                         <p className="secret-message">
-                          Como te lo dije una vez, llegaste a mi vida en un
-                          momento en el que realmente lo necesitaba, y me alegra
-                          que así haya sido.
+                          Espero que sigamos conociéndonos más con el paso del
+                          tiempo y que esto que tenemos no termine nunca,
+                          porque te has convertido en una persona muy
+                          importante en mi vida.
                         </p>
                         <p className="secret-message">
-                          Quiero que sepas que siempre vas a poder contar
-                          conmigo. En mí siempre tendrás a alguien que te
-                          escuche, que te apoye y que estará ahí cuando lo
-                          necesites. Espero que nuestra amistad siga creciendo y
-                          que podamos seguir compartiendo muchos momentos más,
-                          con la misma confianza y alegría que hemos tenido
-                          hasta ahora.
+                          Que este nuevo año te traiga muchísima felicidad.
                         </p>
                         <p className="secret-message">
-                          Gracias por ser exactamente como eres. No cambies esa
-                          forma tan especial de ver la vida y de hacer sentir
-                          bien a quienes tenemos la fortuna de conocerte.
-                        </p>
-                        <p className="secret-message">
-                          ¡Feliz cumpleaños! Te quiero mucho. ❤️
+                          ¡Feliz cumpleaños, Sandra! Te quiero mucho. ❤️
                         </p>
                       </>
                     ) : (
                       <form className="password-form" onSubmit={checkPassword}>
                         <input
                           type="password"
+                          inputMode="numeric"
                           className="password-input"
                           placeholder="Contraseña"
                           value={passwordInput}
