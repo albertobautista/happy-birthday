@@ -14,10 +14,6 @@ const launchConfetti = () => {
   const intervalDelay = isMobile ? 350 : 220;
   const animationEnd = Date.now() + duration;
 
-  const dogShapes = ["🐾", "🦴", "🐶"].map((text) =>
-    confetti.shapeFromText({ text, scalar: 2 }),
-  );
-  const shapes = [...dogShapes, "circle", "square"] as confetti.Shape[];
   const colors = [
     "#d98a3d",
     "#ff7f6b",
@@ -27,7 +23,7 @@ const launchConfetti = () => {
     "#6b3f24",
   ];
   const fire = (options: confetti.Options) =>
-    confetti({ shapes, colors, scalar: 1.6, ...options });
+    confetti({ colors, ...options });
 
   const randomInRange = (min: number, max: number) =>
     Math.random() * (max - min) + min;
@@ -294,7 +290,7 @@ export default function BirthdayExperience() {
                 type="button"
               >
                 <PawPrint size={18} />
-                Más patitas
+                Más confeti
               </button>
 
               <Dialog.Root>
